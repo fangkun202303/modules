@@ -1,0 +1,80 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+server:
+  port: 9010
+spring:
+  application:
+    name: userServer
+  #��ͼ��
+  #  mvc:
+  #    view:
+  #      prefix: /WEB-INF/view/
+  #      suffix: .jsp
+
+  #���ݿ����ӳ�
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:ORCL
+    username: CWBYSC
+    password: CWBYSC
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    hikari:
+      auto-commit: false
+      connection-timeout: 30000
+      idle-timeout: 25000
+      login-timeout: 5
+      max-lifetime: 30000
+      read-only: false
+      validation-timeout: 3000
+      maximum-pool-size: 15
+      minimum-idle: 10
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+
+#feign的请求配置
+feign :
+  hystrix :
+    enabled : false
+  httpclient :
+    enabled : true
+
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  typeAliasesPackage: com.multimodule.userserver.domain
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  #ʵ��ɨ�裬���package�ö��Ż��߷ֺŸ���
+  typeAliasesPackage: com.multimodule.userserver.domain
+  global-config:
+    db-config:
+      id-type: uuid
+      field-strategy: not_empty
+      table-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+#log��־���ڿ���̨��ӡdao���sql
+logging:
+  level:
+    com.multimodule.userserver.dao: DEBUG

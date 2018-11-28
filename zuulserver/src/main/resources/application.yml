@@ -1,0 +1,59 @@
+#eureka客户端的配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+
+#spring的配置
+spring:
+  application:
+    name: zuulServer
+
+#服务的端口号
+server:
+  port: 9030
+
+#--请求时间的相关配置
+#feign的请求配置
+feign :
+  hystrix :
+    enabled : false
+  httpclient :
+    enabled : true
+
+#强制关闭hystrix熔断
+#hystrix :
+#  command :
+#    default :
+#      execution :
+#        timeout:
+#          enabled : false
+#      circuitBreaker :
+#        forceOpen : false
+#        forceClosed : true
+#ribbon超时设置
+#ribbon :
+#  ConnectTimeout : 60000
+#  ReadTimeout : 60000
+#  MaxAutoRetries : 1
+#  MaxAutoRetriesNextServer : 2
+
+zuul :
+  host :
+    #http客户端连接池最大连接 默认是200(zuul的HttpClient有效)
+    maxTotalConnections : 500
+    #每个route可用的最大连接数，默认值是20(zuul的ApacheHttpClient有效)
+    maxPerRouteConnections : 80
+#  ignoredPatterns : /heartbeat/**,/api/**,/mappings/**
+#  sensitiveHeaders:
+  routes:
+
+    #用户服务
+    userServer:
+      path: /userServer/**
+      serviceId: userServer
+
+    #缓存服务
+    redisServer:
+      path: /redisServer/**
+      serviceId: redisServer

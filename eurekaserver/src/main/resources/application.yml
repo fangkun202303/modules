@@ -1,0 +1,13 @@
+server:
+  #eureka 服务端
+  port: 9000
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defultZone: http://localhost:9000/eureka/
