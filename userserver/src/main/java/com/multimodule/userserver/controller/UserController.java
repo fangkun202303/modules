@@ -90,4 +90,12 @@ public class UserController {
         return JSON.toJSONString(userService.gainUserListToCachAndView());
     }
 
+    @RequestMapping(value = "/updteUser")
+    @ResponseBody
+    public String updteUser(){
+        SysUser user = userService.gainUserById("CZ00");
+        String s = userService.updteUser(user, user.getUsercode());
+        return s;
+    }
+
 }

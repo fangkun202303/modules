@@ -1,0 +1,27 @@
+#消息服务注册
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+
+#activemq的
+server:
+  port: 9055
+spring:
+  appliction:
+    name: activemqCustomer
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    in-memory: false
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 50
+  jms:
+    #默认情况下activemq提供的是queue模式，若要使用topic模式需要配置pub-sub-domain为true
+    pub-sub-domain: true
+
+#主题获取队列的名称，目前默认
+queueName: modules
+topicName: modulestopic

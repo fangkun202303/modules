@@ -2,6 +2,7 @@ package com.multimodule.userserver.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.multimodule.userserver.dao.SysUserMapper;
@@ -24,7 +25,7 @@ import java.util.Map;
  * @Version: 1.0
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+//@Transactional(readOnly = true, rollbackFor = Exception.class)
 public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements UserService {
 
     @Autowired
@@ -89,5 +90,14 @@ public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impleme
 //            redisRest.setValue(map);
 //        }
         return list;
+    }
+
+    @Transactional
+    @Override
+    public String updteUser(SysUser u, String usercode) {
+        u.setName("总公司CZ00");
+        int code = baseMapper.update(u, new UpdateWrapper<SysUser>().eq("USERCODE", usercode));
+        int i=1/0;
+        return code+"";
     }
 }

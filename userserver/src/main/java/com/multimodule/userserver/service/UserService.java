@@ -22,4 +22,6 @@ public interface UserService extends IService<SysUser> {
     public IPage<SysUser> gainUserPageList(IPage<SysUser> page, String code);
 
     public List<SysUser> gainUserListToCachAndView();
+
+    public String updteUser(SysUser u , String usercode);
 }
