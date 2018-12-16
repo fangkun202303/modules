@@ -15,15 +15,15 @@ import java.util.Map;
  * @Date: Created in 2018/11/27 14:22
  * @Version: 1.0
  */
-@FeignClient("redisServer")
+@FeignClient(value="redisServer")
 public interface RedisRestInterface {
 
     @RequestMapping("/redis/getValue")
-    public String gainValue(@RequestParam Map<String, Object> map);
+    public String gainValue(@RequestParam(value="map") Map<String, Object> map);
 
     @RequestMapping("/redis/setValue")
-    public String setValue(@RequestParam Map<String, Object> map);
+    public String setValue(@RequestParam(value="map") Map<String, Object> map);
 
     @RequestMapping("/redis/setValues")
-    public String setValues(@RequestParam List<SysUser> list, @RequestParam String key);
+    public String setValues(@RequestParam(value="list") List<SysUser> list, @RequestParam(value="key") String key);
 }

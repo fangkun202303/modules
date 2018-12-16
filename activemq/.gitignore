@@ -23,3 +23,10 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+./idea
+.mvn
+/target/
+activemq.iml
+mvnw
+mvnw.cmd

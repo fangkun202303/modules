@@ -1,0 +1,40 @@
+#modules的配置服务
+server:
+  port: 9060
+
+#配置服务注册
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+
+spring:
+  application:
+    name: configServer
+  #配置配置服务
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/fangkun202303/modulesConfig.git
+          username: fangkun202303
+          password: fk202303
+          search-paths: /**
+          basedir: D:/develop/workspace/idea/modules/modules/configBasedir
+      discovery:
+        # 开启配置服务发现
+        enabled: true
+        # 配置服务实例名称
+        service-id: configServer
+      # 配置文件所在分支
+      label: master
+      # 指定环境
+      profile: master
+
+version: local
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

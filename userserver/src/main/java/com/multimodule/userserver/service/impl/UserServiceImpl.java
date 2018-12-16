@@ -33,8 +33,8 @@ public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impleme
 
     //每页的条数
     private final Integer pageSize=20;
-//    @Autowired
-//    public SysUserMapper sysUserMapper;
+    @Autowired
+    public SysUserMapper sysUserMapper;
 
     @Override
     public SysUser gainUserById(String id) {

@@ -6,7 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.multimodule.userserver.domain.SysUser;
 import com.multimodule.userserver.restInterface.RedisRestInterface;
 import com.multimodule.userserver.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +31,25 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/user")
+@RefreshScope  //开启更新配置的功能
 public class UserController {
+
+    private static Logger lg= LoggerFactory.getLogger(IndexController.class);
+
+    //====== 测试配置之心的代码区 START
+    @Value("${from}")
+    private String fromValue;
+
+    /**
+     * 返回配置文件中的值
+     */
+    @RequestMapping("/from")
+    @ResponseBody
+    public String returnFormValue(){
+        lg.info("from对应的值："+fromValue);
+        return fromValue;
+    }
+    //====== 测试配置之心的代码区 END
 
     @Autowired
     public RedisRestInterface redisRest;
