@@ -1,0 +1,92 @@
+###
+### 配置中心服务在git上面搭建完成，这些配置可有可无
+###
+eureka:
+  instance:
+    appname: userServer
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+server:
+  port: 9010
+spring:
+  application:
+    name: userServer
+  #视图层
+  #  mvc:
+  #    view:
+  #      prefix: /WEB-INF/view/
+  #      suffix: .jsp
+
+  #数据库连接配置
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:ORCL
+    username: CWBYSC
+    password: CWBYSC
+    ### 阿里数据库的连接配置
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #连接池的配置信息
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    ### hikari连接池的配置，需要配合配置类，不然启动报错
+  #    type: com.zaxxer.hikari.HikariDataSource
+  #    driver-class-name: oracle.jdbc.driver.OracleDriver
+  #    hikari:
+  #      minimum-idle: 5
+  #      maximum-pool-size: 15
+  #      auto-commit: true
+  #      idle-timeout: 30000
+  #      pool-name: DatebookHikariCP
+  #      max-lifetime: 1800000
+  #      connection-timeout: 30000
+  #      connection-test-query: SELECT 1
+
+#feign的请求配置
+feign :
+  hystrix :
+    enabled : false
+  httpclient :
+    enabled : true
+
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  typeAliasesPackage: com.multimodule.userserver.domain
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  #mybatis-plus的数据
+  typeAliasesPackage: com.multimodule.userserver.domain
+  global-config:
+    db-config:
+      id-type: uuid
+      field-strategy: not_empty
+      table-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+#打印dao层的DEBUG级别的sql
+logging:
+  level:
+    com.multimodule.userserver.dao: DEBUG

@@ -12,7 +12,8 @@ spring:
   cloud:
     config:
       name: userServer
-#      uri: http://localhost:9060/
+      # 但没有注册中心的时候需要这个url来获取配置库中的配置
+      # uri: http://localhost:9060/
       profile: master
       label: master
       discovery:

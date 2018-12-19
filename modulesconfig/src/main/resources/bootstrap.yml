@@ -13,32 +13,45 @@ eureka:
 spring:
   application:
     name: configServer
+  # 激活本地文件作为配置文件库
+  profiles:
+    active: native
   #配置配置服务
   cloud:
     config:
       server:
-        git:
-          uri: https://github.com/fangkun202303/modulesConfig.git
-          # git.uri配置方式不用http开头而是使用本地文件协议，file:///方式，地址指向第一步创建的git仓库地址
-          #uri: file:///E:/coding/git/localRep/configlearn
-          username: fangkun202303
-          password: fk202303
-          search-paths: /**
-          # 当启动config服务端的时候会根据配的git地址clone一份到这个路径
-          basedir: D:/develop/workspace/idea/modules/modules/configBasedir
+        # 本地搭建配置中心库
+        native:
+          search-locations: file:///D:/develop/workspace/idea/modules/configfiles
       discovery:
         # 开启配置服务发现
         enabled: true
         # 配置服务实例名称
         service-id: configServer
-      # 配置文件所在分支
-      label: master
-      # 指定环境
-      profile: master
-      # 修改默认的地址
-      uri: http://localhost:9060/
-      # 配置中心通过git从远程git库，有时本地的拷贝被污染，这时配置中心无法从远程库更新本地配置,设置force-pull=true，则强制从远程库中更新本地库
-      force-pull: true
+
+#        # git搭建配置文件库
+#        git:
+#          uri: https://github.com/fangkun202303/modulesConfig.git
+#          # git.uri配置方式不用http开头而是使用本地文件协议，file:///方式，地址指向第一步创建的git仓库地址
+#          #uri: file:///E:/coding/git/localRep/configlearn
+#          username: fangkun202303
+#          password: fk202303
+#          search-paths: /**
+#          # 当启动config服务端的时候会根据配的git地址clone一份到这个路径
+#          basedir: D:/develop/workspace/idea/modules/modules/configBasedir
+#      discovery:
+#        # 开启配置服务发现
+#        enabled: true
+#        # 配置服务实例名称
+#        service-id: configServer
+#      # 配置文件所在分支
+#      label: master
+#      # 指定环境
+#      profile: master
+#      # 修改默认的地址
+#      uri: http://localhost:9060/
+#      # 配置中心通过git从远程git库，有时本地的拷贝被污染，这时配置中心无法从远程库更新本地配置,设置force-pull=true，则强制从远程库中更新本地库
+#      force-pull: true
 
 version: local
 
