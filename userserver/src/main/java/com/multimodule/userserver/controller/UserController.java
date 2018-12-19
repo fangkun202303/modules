@@ -3,14 +3,13 @@ package com.multimodule.userserver.controller;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.multimodule.userserver.domain.SysApp;
 import com.multimodule.userserver.domain.SysUser;
 import com.multimodule.userserver.restInterface.RedisRestInterface;
 import com.multimodule.userserver.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,21 +23,25 @@ import java.util.Map;
 
 /**
  * @ClassName: UserController
- * @Description: TODO
+ * @Description:
  * @Author: FangKun
  * @Date: Created in 2018/11/13 8:22
  * @Version: 1.0
  */
 @Controller
 @RequestMapping("/user")
-@RefreshScope  //开启更新配置的功能
+//@RefreshScope  //开启更新配置的功能
 public class UserController {
 
     private static Logger lg= LoggerFactory.getLogger(IndexController.class);
 
     //====== 测试配置之心的代码区 START
-    @Value("${from}")
-    private String fromValue;
+//
+    @Autowired
+    public SysApp app;
+
+//    @Value("${spring.datasource}")
+//    private Object fromValue;
 
     /**
      * 返回配置文件中的值
@@ -46,11 +49,16 @@ public class UserController {
     @RequestMapping("/from")
     @ResponseBody
     public String returnFormValue(){
-        lg.info("from对应的值："+fromValue);
-        return fromValue;
+        lg.info("from对应的值："+app.getAppname());
+        String value=app.getAppname();
+        System.out.println("之前的内容："+app.getAppname());
+        return JSON.toJSONString(app.getAppname()+"=====<<<<>>>>====="+app.getAppname());
+//        lg.info("from对应的值："+fromValue);
+//        return JSON.toJSONString(fromValue);
     }
     //====== 测试配置之心的代码区 END
 
+    @SuppressWarnings("all")
     @Autowired
     public RedisRestInterface redisRest;
 
@@ -63,14 +71,15 @@ public class UserController {
         Map<String,Object> map =new HashMap<>();
         map.put("key","users");
         map.put("item",id);
-        String s = redisRest.gainValue(map);
-        if(s.equals("null")){
+//        String s = redisRest.gainValue(map);
+//        if(s.equals("null")){
             SysUser user=userService.gainUserById(id);
-            map.put("value",JSON.toJSONString(user));
-            String code=redisRest.setValue(map);
-            s=JSON.toJSONString(user);
-        }
-        return s;
+//            map.put("value",JSON.toJSONString(user));
+//            String code=redisRest.setValue(map);
+//            s=JSON.toJSONString(user);
+//        }
+//        return s;
+        return JSON.toJSONString(user);
     }
 
     @RequestMapping(value = "/gainUserList")

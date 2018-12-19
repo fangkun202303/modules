@@ -4,6 +4,8 @@ server:
 
 #配置服务注册
 eureka:
+  instance:
+    appname: configServer
   client:
     service-url:
       defaultZone: http://localhost:9000/eureka/
@@ -17,9 +19,12 @@ spring:
       server:
         git:
           uri: https://github.com/fangkun202303/modulesConfig.git
+          # git.uri配置方式不用http开头而是使用本地文件协议，file:///方式，地址指向第一步创建的git仓库地址
+          #uri: file:///E:/coding/git/localRep/configlearn
           username: fangkun202303
           password: fk202303
           search-paths: /**
+          # 当启动config服务端的时候会根据配的git地址clone一份到这个路径
           basedir: D:/develop/workspace/idea/modules/modules/configBasedir
       discovery:
         # 开启配置服务发现
@@ -30,9 +35,14 @@ spring:
       label: master
       # 指定环境
       profile: master
+      # 修改默认的地址
+      uri: http://localhost:9060/
+      # 配置中心通过git从远程git库，有时本地的拷贝被污染，这时配置中心无法从远程库更新本地配置,设置force-pull=true，则强制从远程库中更新本地库
+      force-pull: true
 
 version: local
 
+# springboot 2.0 以后针对注解@RefreshScope的配置；2.0之后，默认只开启了端点info、health，"*"是将所有接口都开放，这样写只是，这是服务端的配置
 management:
   endpoints:
     web:
