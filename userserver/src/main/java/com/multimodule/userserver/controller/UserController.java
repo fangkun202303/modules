@@ -71,15 +71,15 @@ public class UserController {
         Map<String,Object> map =new HashMap<>();
         map.put("key","users");
         map.put("item",id);
-//        String s = redisRest.gainValue(map);
-//        if(s.equals("null")){
+        String s = redisRest.gainValue(map);
+        if(s.equals("null")){
             SysUser user=userService.gainUserById(id);
-//            map.put("value",JSON.toJSONString(user));
-//            String code=redisRest.setValue(map);
-//            s=JSON.toJSONString(user);
-//        }
-//        return s;
-        return JSON.toJSONString(user);
+            map.put("value",JSON.toJSONString(user));
+            String code=redisRest.setValue(map);
+            s=JSON.toJSONString(user);
+        }
+        return s;
+//        return JSON.toJSONString(user);
     }
 
     @RequestMapping(value = "/gainUserList")

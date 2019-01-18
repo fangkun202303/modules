@@ -8,8 +8,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableFeignClients("com.multimodule.userserver.restInterface")
+@EnableFeignClients
 @EnableTransactionManagement
+
 public class UserserverApplication {
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package com.multimodule.userserver.restInterface;
 
+import com.multimodule.userserver.config.FeignClientFallback;
 import com.multimodule.userserver.domain.SysUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import java.util.Map;
  * @Date: Created in 2018/11/27 14:22
  * @Version: 1.0
  */
-@FeignClient(value="redisServer")
+@FeignClient(value="redisServer",fallback = FeignClientFallback.class)
 public interface RedisRestInterface {
 
     @RequestMapping("/redis/getValue")

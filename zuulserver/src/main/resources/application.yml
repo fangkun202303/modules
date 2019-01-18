@@ -44,10 +44,15 @@ zuul :
     maxTotalConnections : 500
     #每个route可用的最大连接数，默认值是20(zuul的ApacheHttpClient有效)
     maxPerRouteConnections : 80
-#  ignoredPatterns : /heartbeat/**,/api/**,/mappings/**
-#  sensitiveHeaders:
+  #  ignoredPatterns : /heartbeat/**,/api/**,/mappings/**
+  #  sensitiveHeaders:
+  # 设置一个公共的前缀
+  prefix:
   routes:
-
+    # 认证服务
+    oauthServer:
+      path: /uaa/**
+      serviceId: oauthServer
     #用户服务
     userServer:
       path: /userServer/**
@@ -57,3 +62,20 @@ zuul :
     redisServer:
       path: /redisServer/**
       serviceId: redisServer
+  add-proxy-headers: true
+
+# 权限配置
+security:
+  oauth2:
+    client:
+      # 获取临牌的路径
+      access-token-uri: http://localhost:9040/uaa/oauth/token
+      # 授权
+      user-authorization-uri: http://localhost:9040/uaa/oauth/authorize
+      # OAUTH客户端id
+      client-id: zuulServer
+      # OAUTH客户端密钥
+      client-secret: secret
+    resource:
+      jwt:
+        key-value: modules

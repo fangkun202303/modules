@@ -1,33 +1,32 @@
-eureka:
-  instance:
-    appname: userServer
-  client:
-    service-url:
-      defaultZone: http://localhost:9000/eureka/
-
-spring:
-  application:
-    name: userServer
-  # 配置服务的客户端
-  cloud:
-    config:
-      name: userServer
-      # 但没有注册中心的时候需要这个url来获取配置库中的配置
-      # uri: http://localhost:9060/
-      profile: master
-      label: master
-      discovery:
-        enabled: true
-        service-id: configServer
-# SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
-management:
-  cloudfoundry:
-    enabled: false
-  # springboot 2.0 以后针对注解@RefreshScope的配置，2.0之后，默认只开启了端点info、health，将refresh接口开放，这是客户端的配置
-  # 自boot2.0 之后，刷新的路径为：http://客户端ip:客户端端口号/actuator/refresh
-  # 当客户端需要引用配置服务的时候要将新建一个配置文件bootstrap.yml文件，里面是配置服务相关的配置，这个配置的优先级高于application.yml加载，这样将在git上面的配置加载到服务中使用
-  endpoints:
-    web:
-      exposure:
-        include: refresh
-
+#eureka:
+#  instance:
+#    appname: userServer
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:9000/eureka/
+#
+#spring:
+#  application:
+#    name: userServer
+#  # 配置服务的客户端
+#  cloud:
+#    config:
+#      name: userServer
+#      # 但没有注册中心的时候需要这个url来获取配置库中的配置
+#      # uri: http://localhost:9060/
+#      profile: master
+#      label: master
+#      discovery:
+#        enabled: true
+#        service-id: configServer
+## SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
+#management:
+#  cloudfoundry:
+#    enabled: false
+#  # springboot 2.0 以后针对注解@RefreshScope的配置，2.0之后，默认只开启了端点info、health，将refresh接口开放，这是客户端的配置
+#  # 自boot2.0 之后，刷新的路径为：http://客户端ip:客户端端口号/actuator/refresh
+#  # 当客户端需要引用配置服务的时候要将新建一个配置文件bootstrap.yml文件，里面是配置服务相关的配置，这个配置的优先级高于application.yml加载，这样将在git上面的配置加载到服务中使用
+#  endpoints:
+#    web:
+#      exposure:
+#        include: refresh

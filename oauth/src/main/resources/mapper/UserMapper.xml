@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multimodule.oauth.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.multimodule.oauth.domain.SysUser">
+    <constructor>
+      <arg column="ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="USERCODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PERSONID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AVAILABLEDATE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="DISABLEDATE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="SORT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="STOPFLAG" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COMPANYCODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DEPTCODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SYSMANAGER" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <select id="getUser" parameterType="java.lang.String" resultType="com.multimodule.oauth.domain.SysUser" resultMap="BaseResultMap">
+    select u.* from sys_user u where u.name like '%'||#{userName}||'%'
+  </select>
+
+</mapper>

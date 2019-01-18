@@ -1,0 +1,16 @@
+# 注册中心
+eurekaServer：9000
+# 网关服务
+zuulServer：9030
+# 配置服务
+modulesconfig：9060
+# 消息服务
+activemqServer：9055
+# 认证服务
+oauthServer：9040
+# 缓存服务
+redisServer：9100
+
+# 业务服务案例
+userServer：9010
+

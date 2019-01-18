@@ -1,6 +1,7 @@
 ###
 ### 配置中心服务在git上面搭建完成，这些配置可有可无
 ###
+from: ada
 eureka:
   instance:
     appname: userServer
@@ -56,8 +57,9 @@ spring:
 
 #feign的请求配置
 feign :
+  # 开启熔断
   hystrix :
-    enabled : false
+    enabled : true
   httpclient :
     enabled : true
 
@@ -90,3 +92,5 @@ mybatis-plus:
 logging:
   level:
     com.multimodule.userserver.dao: DEBUG
+
+
